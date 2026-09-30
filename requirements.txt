@@ -1,7 +1,7 @@
 streamlit
-pandas
 numpy
+pandas
 matplotlib
-seaborn
 scikit-learn
 tensorflow
+yfinance
