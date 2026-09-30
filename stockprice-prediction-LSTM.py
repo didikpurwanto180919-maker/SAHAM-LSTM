@@ -86,7 +86,7 @@ if uploaded_file is not None:
                 x_train, y_train = np.array(x_train), np.array(y_train)
                 x_train = np.reshape(x_train, (x_train.shape[0], x_train.shape[1], 1))
 
-                # Membangun Model LSTM yang ringan untuk data kecil
+                # Membangun Model LSTM
                 model = Sequential()
                 model.add(LSTM(units=16, return_sequences=True, input_shape=(x_train.shape[1], 1)))
                 model.add(Dropout(0.1))
@@ -131,6 +131,14 @@ if uploaded_file is not None:
 
                 st.success("Pelatihan dan prediksi selesai!")
                 
+                # Informasi Estimasi Prediksi Terbaru
+                st.subheader("🔮 Estimasi Prediksi Terakhir")
+                if not valid.empty:
+                    last_row = valid.iloc[-1]
+                    last_date = last_row['Date'].strftime('%d-%m-%Y')
+                    last_pred = last_row['Predictions']
+                    st.info(f"Berdasarkan titik data pengujian terakhir pada tanggal **{last_date}**, estimasi harga penutupannya adalah: **{last_pred:,.2f}**")
+
                 # Menampilkan tabel hasil prediksi
                 st.subheader("📋 Detail Data Prediksi Terbaru")
                 st.dataframe(valid[['Date', close_col, 'Predictions']])
